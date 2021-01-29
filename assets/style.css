@@ -1,3 +1,15 @@
 .body {
     background: blue;
 }
+
+.jumbotron {
+    text-align: center;
+    background-color: black;
+    color: #ffffff;
+    border-radius: 0;
+    border-bottom: 10px solid black;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    
+   
+  }

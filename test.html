@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+
+    <!--reset css-->
+    <link type="text/css" rel="stylesheet" href="./assets/css/reset.css">
+
+    <!--bootstrap css-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!--my css-->
+    <link type="text/css" rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body>
+
+    <!--top navigation bar-->
+    <header class="nd-header py-2 navbar-dark bg-dark fixed-top border-dark">
+        <section class="container">
+
+            <h1 class="text-white mx-5 text-center">Weather Dashboard</h1>
+
+        </section>
+    </header>
+
+    <main class="container">
+
+        <section class="row mt-5 pt-4 bg-light">
+
+            <section class="col-4 bg-secondary pb-5">
+                <article class="row" id="search">
+
+                    <label class="fs-2">Search for a City:</label>
+                    
+                    <input class="col-7 ms-2">
+
+                    <button class="btn col-2"></button>
+
+                </article>
+
+                <article class="row mt-4">
+                    <section class="col" id="citys">
+                        <!-- this is where I will put the previously searched citys-->
+                        <!--These will all be dynamically created with jQuery-->
+                        <article class="row  g-2 mt-2 border">
+                            <h1 class="text-light">City</h1>
+                        </article>
+                  
+                        <article class="row mt-2 g-2 border">
+                            <h1 class="text-light">City</h1>
+                        </article>
+
+                        <article class="row mt-2 g-2 border">
+                            <h1 class="text-light">City</h1>
+                        </article>
+
+                        <article class="row mt-2 g-2 border">
+                            <h1 class="text-light">City</h1>
+                        </article>
+
+                        <article class="row mt-2 g-2 border">
+                            <h1 class="text-light">City</h1>
+                        </article>
+
+                        <article class="row mt-2 g-2 border">
+                            <h1 class="text-light">City</h1>
+                        </article>
+
+                    </section>
+                    
+                </article>
+            </section>
+
+            <section class="col-8 bg-info">
+
+                <section class="row m-3">
+
+                    <article class="col-12 border" id="current">
+                        <!--This is where I will put current city info-->
+                        <!--These will all be dynamically created with jQuery-->
+                        <section class="row gy-1">
+                            <h1>City name</h1>
+                        </section>
+
+                        <section class="row gy-1">
+                            <h1>temp</h1>
+                        </section>
+
+                        <section class="row gy-1">
+                        <h1>humidiy</h1>
+                        </section>
+
+                        <section class="row gy-1">
+                            <h1>wind speed</h1>
+                        </section>
+                        
+                        <section class="row gy-1">
+                            <h1>uv index</h1>
+                        </section>
+                        
+                    </article>
+
+                </section>
+
+                <section class="row m-3">
+
+                    <section class="col-12 border">
+
+                        <h1>5- Day Forecast:</h1>
+
+                        <article class="row" id="forecast">
+                            <!--This is where I will put 5-day forcast info-->
+                            <!--These will all be dynamically created with jQuery-->
+                            <article class="card col-2 mx-2 card-body">
+                                    <h5 class="card-title">Date</h5>
+                                    <p class="card-title">Pic</p>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                            </article>
+
+                            <article class="card col-2 mx-2 card-body">
+                                    <h5 class="card-title">Date</h5>
+                                    <p class="card-title">Pic</p>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                            </article>
+
+                            <article class="card col-2 mx-2 card-body">
+                                    <h5 class="card-title">Date</h5>
+                                    <p class="card-title">Pic</p>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                            </article>
+
+                            <article class="card col-2 mx-2 card-body">
+                                    <h5 class="card-title">Date</h5>
+                                    <p class="card-title">Pic</p>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                            </article>
+
+                            <article class="card col-2 mx-2 card-body">
+                                    <h5 class="card-title">date</h5>
+                                    <p class="card-title">Pic</p>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                            </article>
+
+                        </article>
+
+                    </section>
+
+                </section>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <!--script for bootstrap js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <!--jQuery CDN-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+    <!--links my script file-->
+    <script src="./assets/js/script.js"></script>
+    
+</body>
+
+</html>
