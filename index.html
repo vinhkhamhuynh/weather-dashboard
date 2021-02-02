@@ -22,16 +22,17 @@
         <h1 class="display-3">Weather Dashboard</h1>
 
     </header>
+
     <main class="container">
 
         <div class="row justify-content-start">
 
-            <div class="col-4 lg-secondary pb-5">
+            <section class="col-4 lg-secondary pb-5">
                 <div class="row">
-                    <p>search a city </p>
+                    <p>Search for a City </p>
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <input class="form-control me-2" id="citySearch" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" id="searchBtn" type="submit">Search</button>
                       </form>
                    
                 </div>
@@ -40,30 +41,23 @@
 
                 <div class="row">
                 <div class="card" style="width: 90%;">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
+                    <ul class="list-group list-group-flush" id="searchHistory">
+                    
                     </ul>
                   </div>
                 </div>
                 
                 
-            </div>
-            <div class="col-8 bg-info">
+            </section>
+
+            <aside class="col-8 bg-info ">
 
                 <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-body">
-                                5 days forecast information
+                            <div class="card-body" id="currentConditionDisplay">
+                                Current Condition:
                                 <p>city</p>
-                                <p>temp</p>
+                                <p id="temp">temp</p>
                                 <p>humidiy</p>
                                 <p>uv</p>
                                 <p>something else </p>
@@ -113,7 +107,7 @@
 
                 </div>
 
-            </div>
+            </aside>
 
     </main>
 
