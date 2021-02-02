@@ -1,28 +1,37 @@
-
-
-
-
-
-
-
-
-
-
 $(document).ready(function () {
     //create variables using javascript
+    var searchTerm = document.querySelector('#searchTerm');
+    var searchBtn = document.querySelector('#searchBtn');
+    var searchHistory = document.querySelector('#searchHistory');
+    var currentConditionDisplay = document.querySelector('#currentConditionDisplay');
+    var futureDisplay = document.querySelector('#futureDisplay')
+
     //create time and date using luxon
+
+    var DateTime = luxon.DateTime.local().setZone("America/New_york");
+    var currentDate = DateTime.toLocaleString({
+        weekday: 'long',
+        month: 'long',
+        day: '2-digit',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+
+    });
+
+    console.log(currentDate);
     //create getApi function
     //create function to capture searchTerm
-        //push searchTerm to api to get weather conditions including below and append to #currentConditionDisplay:
-            //cityname, date, icon representations of weather conditions , temperture, humidity, wind speed, uv index
-            //color indicates uv index is favorable, moderate , or severe
+    //push searchTerm to api to get weather conditions including below and append to #currentConditionDisplay:
+    //cityname, date, icon representations of weather conditions , temperture, humidity, wind speed, uv index
+    //color indicates uv index is favorable, moderate , or severe
 
-        //create 5 day forecast append to #5dayDisplay
-            //each day with date display, icon, temperature , and humidity
-        //save searchTerm to display in #searchHistory section 
-    
-    
-    
+    //create 5 day forecast append to #futureDisplay
+    //each day with date display, icon, temperature , and humidity
+    //save searchTerm to display in #searchHistory section 
+
+
+
 
     //my api id = a72e07c808e0cdfc9d609b54001dafa3
 
@@ -43,10 +52,10 @@ $(document).ready(function () {
     };
 
 
-    
-    
 
-   
+
+
+
 
 
     /*$("#searchBtn").on("click", function() {
@@ -69,9 +78,9 @@ $(document).ready(function () {
 
     };*/
 
-    
 
-    $("#searchBtn").on("click", function() {
+
+    $("#searchBtn").on("click", function () {
 
         // 1. create url string
         // 2. store to local storage if it s/ 
@@ -89,7 +98,7 @@ $(document).ready(function () {
 
         storeCity();
 
-        
+
 
         /*city.forEach(function(){
         
@@ -99,14 +108,14 @@ $(document).ready(function () {
     
     
         });*/
-        
-       
+
+
 
     });
-    
-  
 
-console.log(city);
+
+
+    console.log(city);
 
 
 

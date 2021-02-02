@@ -31,7 +31,7 @@
                 <div class="row">
                     <p>Search for a City </p>
                     <form class="d-flex">
-                        <input class="form-control me-2" id="citySearch" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2" id="searchTerm" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" id="searchBtn" type="submit">Search</button>
                       </form>
                    
@@ -70,7 +70,7 @@
                     <p>5 day forecast </p>
 
                     <div class="col-lg-2">
-                        <div class="card">
+                        <div class="card" id="futureDisplay">
                             <div class="card-body">
                                 5 days forecast information
                             </div>
@@ -123,6 +123,9 @@
 
     <!--jQuery cdn-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- luxon js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/1.25.0/luxon.js"></script>
 
     <!--personal script-->
     <script type="text/javascript" src="assets/script.js"></script>
