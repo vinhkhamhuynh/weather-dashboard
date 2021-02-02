@@ -19,9 +19,14 @@ $(document).ready(function () {
 
     });
 
-    console.log(currentDate);
+    currentDate = document.createElement('div')
+    currentConditionDisplay.textContent = currentDate
+    currentConditionDisplay.appendChild(currentDate)
+
     //create getApi function
     //create function to capture searchTerm
+
+    
     //push searchTerm to api to get weather conditions including below and append to #currentConditionDisplay:
     //cityname, date, icon representations of weather conditions , temperture, humidity, wind speed, uv index
     //color indicates uv index is favorable, moderate , or severe
@@ -36,6 +41,8 @@ $(document).ready(function () {
     //my api id = a72e07c808e0cdfc9d609b54001dafa3
 
     var requestUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=39.9526&lon=-75.1652&appid=a72e07c808e0cdfc9d609b54001dafa3'
+
+    var display ="api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}"
 
 
 
