@@ -50,19 +50,35 @@ $(document).ready(function () {
 
                 // adding condition in dynamicaly
                 var cityName = $("<h1>").attr("id", "city").text(data.name)
-                var temperature = $("<p>").attr("id", "temp").text(data.main.temp)
-                var humidity = $("<p>").attr("id", "hum").text(data.main.humidity)
-                var windSpeed = $("<p>").attr("id", "windSpeed").text(data.wind.speed)
-                
-                
+                // adding date to cityName
+                var apiDate = data.dt;
+                var date = new Date(apiDate * 1000);
+                var dt = $("<h2>").text(date.toDateString())
+
+
+                // adding icon to cityName
+                var iconCode = data.weather[0].icon
+                var iconUrl = 'https://openweathermap.org/img/wn/' + iconCode + '.png'
+                console.log(iconUrl);
+
+
+                var iconImg = $("<img>").attr({ "id": "iconImg", "scr": iconUrl, "alt": "weather icon" })
+
+
+                //adding current conditions
+                var temperature = $("<p>").attr("id", "temp").text("Temperature: " + data.main.temp + "°F")
+                var humidity = $("<p>").attr("id", "hum").text("Humidity: " + data.main.humidity + "%")
+                var windSpeed = $("<p>").attr("id", "windSpeed").text("Wind Speed: " + data.wind.speed + " MPH")
 
 
 
-                
-                $("#currentConditionDisplay").append(cityName, temperature, humidity, windSpeed,);
-                
 
-                
+
+
+                $("#currentConditionDisplay").append(cityName, iconImg, dt, temperature, humidity, windSpeed,);
+
+
+
 
 
 
@@ -74,10 +90,10 @@ $(document).ready(function () {
     }
 
     // function currentConditions() {
-        
+
     //     var cityName = $("#city").text(data.name)
     //     $("#currentConditionDisplay").append(cityName);
-        
+
 
     // };
 
@@ -93,33 +109,50 @@ $(document).ready(function () {
             .then(function (data) {
                 console.log(data.daily);
 
-                var uvIndex = $("<p>").attr("id", "uvIndex").text(data.current.uvi)
+                var uvIndex = $("<p>").attr("id", "uvIndex").text("UV Index: " + data.current.uvi)
                 $("#currentConditionDisplay").append(uvIndex);
 
-                for (var i=0 ; i<5; i++ ) {
+                //loop info fetched from api to dynamicaly create card for 5day forecast 
+                for (var i = 1; i < 6; i++) {
                     var col = $("<div>").addClass("col-sm-2")
-                    
-                    
+
+
                     var card = $("<div>").addClass("card")
                     var cardBody = $("<div>").addClass("card-body")
 
-                    var dt = $("<p>").text(data.daily[i].dt)
-                    var icon = $("<p>").text(data.daily[i].weather[0].icon)
-                    var temp = $("<p>").text(data.daily[i].temp.day)
-                    var hum = $("<p>").text(data.daily[i].humidity)
-                    
+                    //create date using luxon and info taken from api
+                    var apiDate = data.daily[i].dt;
+                    var date = new Date(apiDate * 1000);
 
+                    //generate icon
+                    var iconCode = data.daily[i].weather[0].icon
+                    var iconUrl = 'https://openweathermap.org/img/wn/' + iconCode + '.png'
+                    console.log(iconUrl);
+
+                    var iconP = $("<div>")
+                    var iconImg = $("<img>").attr({ "id": "iconImg", "scr": iconUrl, "alt": "weather icon" })
+
+                    //generate date
+                    var dt = $("<p>").text(date.toDateString())
+                    //generate temp
+                    var temp = $("<p>").text("Temp: " + data.daily[i].temp.day)
+                    //generate humidity
+                    var hum = $("<p>").text("Humidity: " + data.daily[i].humidity)
+
+
+                    //append all to html
                     $("#foreCast").append(col)
                     col.append(card);
                     card.append(cardBody);
 
-                    cardBody.append(dt, icon, temp, hum);
+                    cardBody.append(dt, iconP, temp, hum);
+                    iconP.append(iconImg);
 
 
 
 
                 }
-                
+
 
             })
 
