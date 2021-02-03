@@ -1,36 +1,54 @@
 $(document).ready(function () {
 
+    // var cities = ["chicago","new york","china"]
 
-    var cities = JSON.parse(localStorage.getItem("cities"))
-
+    
+    
     // localStorage.setItem("cities", JSON.stringify(cities));
     // console.log(localStorage)
 
+// for (var i=0; i <cities.length; i++) {
+   
+//     console.log(i);
+// }
 
+// cities.forEach(function(){
+//     var cities = JSON.parse(localStorage.getItem("cities"))
+//     console.log(cities);
+// })
+// function init (){
+//     var cities = JSON.parse(localStorage.getItem("cities"))
+
+//     renderHistory();
+// }
 
 
     //click event to get search city name and store to local storage 
     $("#searchBtn").on("click", function (event) {
         event.preventDefault();
+        // var cities = JSON.parse(localStorage.getItem("cities"))
 
+        //pushing user input city to local storage
         var city = $("#searchTerm").val().trim();
         searchWeather(city);
+        // console.log(city);
 
-        if (cities.indexOf(city) === -1) {
-            cities.push(city);
-            localStorage.setItem("cities", JSON.stringify(cities));
-        }
-        console.log(cities);
+        // // if (cities.index(city) === -1) {
+           
+        //    var cities =  localStorage.setItem("cities", JSON.stringify(cities));
+        //     cities.push(city);
+        
+        // console.log(cities);
 
-        console.log(city);
+        // console.log(city);
 
     })
 
     //create list items for search history 
-    function createListItems(text) {
-        var li = $("<li>").addClass("list-group-item").text(text);
-        $("#searchHistory").append(li);
-    }
+    // function createListItems(text) {
+    //     var li = $("<li>").addClass("list-group-item").text(text);
+    //     $("#searchHistory").append(li);
+    // }
 
     //push searchTerm to api to get weather conditions including below and append to #currentConditionDisplay:
     // create function to get lat and lon from input city name
@@ -62,7 +80,7 @@ $(document).ready(function () {
                 console.log(iconUrl);
 
 
-                var iconImg = $("<img>").attr({ "id": "iconImg", "scr": iconUrl, "alt": "weather icon" })
+                var iconImg = $("<img>").attr({ "id": "iconImg", "src": iconUrl, "alt": "weather icon" })
 
 
                 //adding current conditions
@@ -72,32 +90,14 @@ $(document).ready(function () {
 
 
 
-
+                $("#currentConditionDisplay").empty(cityName, iconImg, dt, temperature, humidity, windSpeed,);
 
 
                 $("#currentConditionDisplay").append(cityName, iconImg, dt, temperature, humidity, windSpeed,);
-
-
-
-
-
-
-                // var currentConditionDisplay = $("<div>").addClass("card").text(data.name)
-                // $("#currentConditionDisplay").append(data.name);
-
-
             });
     }
 
-    // function currentConditions() {
-
-    //     var cityName = $("#city").text(data.name)
-    //     $("#currentConditionDisplay").append(cityName);
-
-
-    // };
-
-    // currentConditions();
+      // currentConditions();
     // create function to use lat and lon to get addtional info
     function getForecast(lat, lon) {
         var requestUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=hourly&units=imperial&appid=a72e07c808e0cdfc9d609b54001dafa3'
@@ -110,15 +110,16 @@ $(document).ready(function () {
                 console.log(data.daily);
 
                 var uvIndex = $("<p>").attr("id", "uvIndex").text("UV Index: " + data.current.uvi)
+                
                 $("#currentConditionDisplay").append(uvIndex);
 
                 //loop info fetched from api to dynamicaly create card for 5day forecast 
                 for (var i = 1; i < 6; i++) {
-                    var col = $("<div>").addClass("col-sm-2")
+                    var cardBody = $("<article>").addClass("card col-2 mx-2 card-body icon")
 
 
-                    var card = $("<div>").addClass("card")
-                    var cardBody = $("<div>").addClass("card-body")
+                    // var card = $("<div>").addClass("card")
+                    // var cardBody = $("<div>").addClass("card-body")
 
                     //create date using luxon and info taken from api
                     var apiDate = data.daily[i].dt;
@@ -130,26 +131,23 @@ $(document).ready(function () {
                     console.log(iconUrl);
 
                     var iconP = $("<div>")
-                    var iconImg = $("<img>").attr({ "id": "iconImg", "scr": iconUrl, "alt": "weather icon" })
+                    var iconImg = $("<img>").attr({ "id": "iconImg", "src": iconUrl, "alt": "weather icon" })
 
                     //generate date
-                    var dt = $("<p>").text(date.toDateString())
+                    var dt = $("<h5>").text(date.toDateString())
                     //generate temp
-                    var temp = $("<p>").text("Temp: " + data.daily[i].temp.day)
+                    var temp = $("<p>").text("Temp: " + data.daily[i].temp.day+" °F")
                     //generate humidity
-                    var hum = $("<p>").text("Humidity: " + data.daily[i].humidity)
+                    var hum = $("<p>").text("Humidity: " + data.daily[i].humidity+ "%")
 
 
                     //append all to html
-                    $("#foreCast").append(col)
-                    col.append(card);
-                    card.append(cardBody);
+                    $("#foreCast").append(cardBody)
+                    // col.append(card);
+                    // card.append(cardBody);
 
                     cardBody.append(dt, iconP, temp, hum);
                     iconP.append(iconImg);
-
-
-
 
                 }
 
