@@ -52,6 +52,7 @@ $(document).ready(function () {
                console.log(searchedCity);
                $("#currentConditionDisplay").empty();
                $("#foreCast").empty("#forecast");
+               searchWeather(searchedCity);
 
            })
                $("#searchHistory").append(storedCity);
@@ -87,7 +88,7 @@ $(document).ready(function () {
         // console.log(city);
 
     })
-   console.log( $("#searchedCity").html())
+   
 //    $("#searchedCity").on("click", function(ev){
 //        ev.preventDefault();
 //        console.log("hello")
