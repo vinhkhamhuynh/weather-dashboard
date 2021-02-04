@@ -31,6 +31,7 @@ $(document).ready(function () {
     //click event to get search city name and store to local storage 
     $("#searchBtn").on("click", function (event) {
         event.preventDefault();
+        
         // var cities = JSON.parse(localStorage.getItem("cities"))
 
         //pushing user input city to local storage
