@@ -91,6 +91,8 @@ $(document).ready(function () {
 
 
                 $("#currentConditionDisplay").empty(cityName, iconImg, dt, temperature, humidity, windSpeed,);
+                $("#foreCast").empty("#forecast");
+               
 
 
                 $("#currentConditionDisplay").append(cityName, iconImg, dt, temperature, humidity, windSpeed,);
@@ -115,7 +117,7 @@ $(document).ready(function () {
 
                 //loop info fetched from api to dynamicaly create card for 5day forecast 
                 for (var i = 1; i < 6; i++) {
-                    var cardBody = $("<article>").addClass("card col-2 mx-2 card-body icon")
+                    var cardBody = $("<article>").addClass("card col-2 mx-2 card-body icon").attr("id", "forecast")
 
 
                     // var card = $("<div>").addClass("card")
@@ -142,6 +144,7 @@ $(document).ready(function () {
 
 
                     //append all to html
+                   
                     $("#foreCast").append(cardBody)
                     // col.append(card);
                     // card.append(cardBody);
@@ -164,3 +167,10 @@ $(document).ready(function () {
     //save searchTerm to display in #searchHistory section 
 
 })
+
+
+
+
+
+
+
