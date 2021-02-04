@@ -1,105 +1,44 @@
+
+
 $(document).ready(function () {
-
-    // var cities = ["chicago","new york","china"]
-
-    
-    
-    // localStorage.setItem("cities", JSON.stringify(cities));
-    // console.log(localStorage)
-
-// for (var i=0; i <cities.length; i++) {
-   
-//     console.log(i);
-// }
-
-// cities.forEach(function(){
-//     var cities = JSON.parse(localStorage.getItem("cities"))
-//     console.log(cities);
-// })
-// function init (){
-//     var cities = JSON.parse(localStorage.getItem("cities"))
-
-//     renderHistory();
-
-
-
-// }
-
- 
-
 
     //click event to get search city name and store to local storage 
     $("#searchBtn").on("click", function (event) {
         event.preventDefault();
-        
-        // var cities = JSON.parse(localStorage.getItem("cities"))
 
-        //pushing user input city to local storage
+              //pushing user input city to local storage
         var city = $("#searchTerm").val().trim();
         var testCity = []
         testCity.push(city)
-        // localStorage.setItem("task", JSON.stringify(testCity))
-        console.log(testCity);
-        
+       
+
         localStorage.setItem("task", JSON.stringify(testCity))
         var searchHistory = JSON.parse(localStorage.getItem("task"))
-       
-        for (var i = 0 ; i <searchHistory.length; i++){
-           // console.log(searchHistory[i]);
-           var storedCity = $("<button>").addClass("list-group-item").attr("id", "searchedCity").text(searchHistory[i]);
-           
-           storedCity.on("click", function(){
-               var searchedCity = $(this).html();
-               console.log(searchedCity);
-               $("#currentConditionDisplay").empty();
-               $("#foreCast").empty("#forecast");
-               searchWeather(searchedCity);
 
-           })
-               $("#searchHistory").append(storedCity);
-       };
+        for (var i = 0; i < searchHistory.length; i++) {
+            
+            var storedCity = $("<li>").addClass("list-group-item btn-outline-success").attr("id", "searchedCity").text(searchHistory[i]);
 
-        // var searchHistory = JSON.parse(localStorage.getItem("task"))
+            storedCity.on("click", function () {
+                var searchedCity = $(this).html();
 
-        // console.log(searchHistory);
-        
+                $("#currentConditionDisplay").empty();
+                $("#foreCast").empty("#forecast");
+                searchWeather(searchedCity);
 
-       
-        // // var value = city
+            })
+            $("#searchHistory").append(storedCity);
+        };
 
-        // localStorage.setItem("cities", JSON.stringify(city));
-
-        // var cityHistory = JSON.parse(localStorage.getItem("cities"));
-
-        // console.log(cityHistory);
 
 
 
         searchWeather(city);
-        // console.log(city);
 
-
-        // // if (cities.index(city) === -1) {
-           
-        //    var cities =  localStorage.setItem("cities", JSON.stringify(cities));
-        //     cities.push(city);
-        
-        // console.log(cities);
-
-        // console.log(city);
 
     })
-   
-//    $("#searchedCity").on("click", function(ev){
-//        ev.preventDefault();
-//        console.log("hello")
-//    });
-//    console.log(searchedCity);
-    //create list items for search history 
-    // function createListItems(text) {
-    //     var li = $("<li>").addClass("list-group-item").text(text);
-    //     $("#searchHistory").append(li);
-    // }
+
+    //   
 
     //push searchTerm to api to get weather conditions including below and append to #currentConditionDisplay:
     // create function to get lat and lon from input city name
@@ -114,9 +53,7 @@ $(document).ready(function () {
             })
             .then(function (data) {
                 getForecast(data.coord.lat, data.coord.lon);
-
-                console.log(data);
-
+               
                 // adding condition in dynamicaly
                 var cityName = $("<h1>").attr("id", "city").text(data.name)
                 // adding date to cityName
@@ -128,8 +65,6 @@ $(document).ready(function () {
                 // adding icon to cityName
                 var iconCode = data.weather[0].icon
                 var iconUrl = 'https://openweathermap.org/img/wn/' + iconCode + '.png'
-                console.log(iconUrl);
-
 
                 var iconImg = $("<img>").attr({ "id": "iconImg", "src": iconUrl, "alt": "weather icon" })
 
@@ -143,14 +78,14 @@ $(document).ready(function () {
 
                 $("#currentConditionDisplay").empty(cityName, iconImg, dt, temperature, humidity, windSpeed,);
                 $("#foreCast").empty("#forecast");
-               
+
 
 
                 $("#currentConditionDisplay").append(cityName, iconImg, dt, temperature, humidity, windSpeed,);
             });
     }
 
-      // currentConditions();
+    // currentConditions();
     // create function to use lat and lon to get addtional info
     function getForecast(lat, lon) {
         var requestUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=hourly&units=imperial&appid=a72e07c808e0cdfc9d609b54001dafa3'
@@ -160,19 +95,29 @@ $(document).ready(function () {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data.daily);
+                console.log(data);
 
-                var uvIndex = $("<p>").attr("id", "uvIndex").text("UV Index: " + data.current.uvi)
-                
+                // var uvIndex = $("<p>").attr("id", "uvIndex").text("UV Index: " + data.current.uvi)
+                var uvIndex = $("<p>").attr("id", "uvIndex").text("UV Index: ")
+                var uvSpan = $("<p>").text(data.current.uvi)
+
                 $("#currentConditionDisplay").append(uvIndex);
+                $("#uvIndex").append(uvSpan)
+
+                console.log(uvSpan.text());
+
+                //add color to indicate uv index condition
+                if (uvSpan.text() <= 2) {
+                    uvSpan.addClass("bg-success")
+                } else if (uvSpan.text() <= 5 ) {
+                    uvSpan.addClass("bg-warning")
+                } else {
+                    uvSpan.addClass("bg-danger")
+                }
 
                 //loop info fetched from api to dynamicaly create card for 5day forecast 
                 for (var i = 1; i < 6; i++) {
                     var cardBody = $("<article>").addClass("card col-2 mx-2 card-body icon").attr("id", "forecast")
-
-
-                    // var card = $("<div>").addClass("card")
-                    // var cardBody = $("<div>").addClass("card-body")
 
                     //create date using luxon and info taken from api
                     var apiDate = data.daily[i].dt;
@@ -181,7 +126,7 @@ $(document).ready(function () {
                     //generate icon
                     var iconCode = data.daily[i].weather[0].icon
                     var iconUrl = 'https://openweathermap.org/img/wn/' + iconCode + '.png'
-                    console.log(iconUrl);
+                    
 
                     var iconP = $("<div>")
                     var iconImg = $("<img>").attr({ "id": "iconImg", "src": iconUrl, "alt": "weather icon" })
@@ -189,16 +134,14 @@ $(document).ready(function () {
                     //generate date
                     var dt = $("<h5>").text(date.toDateString())
                     //generate temp
-                    var temp = $("<p>").text("Temp: " + data.daily[i].temp.day+" °F")
+                    var temp = $("<p>").text("Temp: " + data.daily[i].temp.day + " °F")
                     //generate humidity
-                    var hum = $("<p>").text("Humidity: " + data.daily[i].humidity+ "%")
+                    var hum = $("<p>").text("Humidity: " + data.daily[i].humidity + "%")
 
 
                     //append all to html
-                   
+
                     $("#foreCast").append(cardBody)
-                    // col.append(card);
-                    // card.append(cardBody);
 
                     cardBody.append(dt, iconP, temp, hum);
                     iconP.append(iconImg);
@@ -210,12 +153,6 @@ $(document).ready(function () {
 
     }
 
-    //cityname, date, icon representations of weather conditions , temperture, humidity, wind speed, uv index
-    //color indicates uv index is favorable, moderate , or severe
-
-    //create 5 day forecast append to #futureDisplay
-    //each day with date display, icon, temperature , and humidity
-    //save searchTerm to display in #searchHistory section 
 
 })
 
