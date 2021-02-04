@@ -20,7 +20,12 @@ $(document).ready(function () {
 //     var cities = JSON.parse(localStorage.getItem("cities"))
 
 //     renderHistory();
+
+
+
 // }
+
+ 
 
 
     //click event to get search city name and store to local storage 
@@ -30,8 +35,47 @@ $(document).ready(function () {
 
         //pushing user input city to local storage
         var city = $("#searchTerm").val().trim();
+        var testCity = []
+        testCity.push(city)
+        // localStorage.setItem("task", JSON.stringify(testCity))
+        console.log(testCity);
+        
+        localStorage.setItem("task", JSON.stringify(testCity))
+        var searchHistory = JSON.parse(localStorage.getItem("task"))
+       
+        for (var i = 0 ; i <searchHistory.length; i++){
+           // console.log(searchHistory[i]);
+           var storedCity = $("<button>").addClass("list-group-item").attr("id", "searchedCity").text(searchHistory[i]);
+           
+           storedCity.on("click", function(){
+               var searchedCity = $(this).html();
+               console.log(searchedCity);
+               $("#currentConditionDisplay").empty();
+               $("#foreCast").empty("#forecast");
+
+           })
+               $("#searchHistory").append(storedCity);
+       };
+
+        // var searchHistory = JSON.parse(localStorage.getItem("task"))
+
+        // console.log(searchHistory);
+        
+
+       
+        // // var value = city
+
+        // localStorage.setItem("cities", JSON.stringify(city));
+
+        // var cityHistory = JSON.parse(localStorage.getItem("cities"));
+
+        // console.log(cityHistory);
+
+
+
         searchWeather(city);
         // console.log(city);
+
 
         // // if (cities.index(city) === -1) {
            
@@ -43,7 +87,12 @@ $(document).ready(function () {
         // console.log(city);
 
     })
-
+   console.log( $("#searchedCity").html())
+//    $("#searchedCity").on("click", function(ev){
+//        ev.preventDefault();
+//        console.log("hello")
+//    });
+//    console.log(searchedCity);
     //create list items for search history 
     // function createListItems(text) {
     //     var li = $("<li>").addClass("list-group-item").text(text);
