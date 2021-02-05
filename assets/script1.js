@@ -2,21 +2,22 @@
 
 $(document).ready(function () {
 
+    
     //click event to get search city name and store to local storage 
     $("#searchBtn").on("click", function (event) {
         event.preventDefault();
 
-              //pushing user input city to local storage
+        //pushing user input city to local storage
         var city = $("#searchTerm").val().trim();
         var testCity = []
         testCity.push(city)
-       
+
 
         localStorage.setItem("task", JSON.stringify(testCity))
         var searchHistory = JSON.parse(localStorage.getItem("task"))
 
         for (var i = 0; i < searchHistory.length; i++) {
-            
+
             var storedCity = $("<li>").addClass("list-group-item btn-outline-success").attr("id", "searchedCity").text(searchHistory[i]);
 
             storedCity.on("click", function () {
@@ -46,14 +47,13 @@ $(document).ready(function () {
 
         var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + name + '&units=imperial&appid=a72e07c808e0cdfc9d609b54001dafa3'
 
-
         fetch(requestUrl)
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
                 getForecast(data.coord.lat, data.coord.lon);
-               
+
                 // adding condition in dynamicaly
                 var cityName = $("<h1>").attr("id", "city").text(data.name)
                 // adding date to cityName
@@ -85,6 +85,7 @@ $(document).ready(function () {
             });
     }
 
+
     // currentConditions();
     // create function to use lat and lon to get addtional info
     function getForecast(lat, lon) {
@@ -101,15 +102,14 @@ $(document).ready(function () {
                 var uvIndex = $("<p>").attr("id", "uvIndex").text("UV Index: ")
                 var uvSpan = $("<p>").text(data.current.uvi)
 
+                //add uv idex to current condition display 
                 $("#currentConditionDisplay").append(uvIndex);
                 $("#uvIndex").append(uvSpan)
-
-                console.log(uvSpan.text());
 
                 //add color to indicate uv index condition
                 if (uvSpan.text() <= 2) {
                     uvSpan.addClass("bg-success")
-                } else if (uvSpan.text() <= 5 ) {
+                } else if (uvSpan.text() <= 5) {
                     uvSpan.addClass("bg-warning")
                 } else {
                     uvSpan.addClass("bg-danger")
@@ -126,7 +126,7 @@ $(document).ready(function () {
                     //generate icon
                     var iconCode = data.daily[i].weather[0].icon
                     var iconUrl = 'https://openweathermap.org/img/wn/' + iconCode + '.png'
-                    
+
 
                     var iconP = $("<div>")
                     var iconImg = $("<img>").attr({ "id": "iconImg", "src": iconUrl, "alt": "weather icon" })
@@ -152,6 +152,8 @@ $(document).ready(function () {
             })
 
     }
+
+
 
 
 })
